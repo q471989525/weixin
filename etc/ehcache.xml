@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="true"
+	monitoring="autodetect" dynamicConfig="true">
+
+	<diskStore path="java.io.tmpdir" />
+
+	<defaultCache maxEntriesLocalHeap="10000" eternal="false"
+		timeToIdleSeconds="1200" timeToLiveSeconds="1200" />
+
+	<!-- 数据字典缓存 -->
+	<cache name="DICTIONARY_MEMORY" maxEntriesLocalHeap="20000"
+		maxEntriesLocalDisk="0" eternal="true" overflowToDisk="true" />
+
+	<!-- 资源角色缓存 -->
+	<cache name="RESOURCE_ROLE_MEMORY" maxEntriesLocalHeap="20000"
+		maxEntriesLocalDisk="0" eternal="true" overflowToDisk="true" />
+
+	<!-- 用户数据缓存 -->
+	<cache name="USER_DATA_MEMORY" maxEntriesLocalHeap="20000"
+		maxEntriesLocalDisk="0" eternal="true" overflowToDisk="true" />
+
+</ehcache>

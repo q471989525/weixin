@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+	version="2.0">
+
+	<description>custom 1.0 library</description>
+	<display-name>custom tag</display-name>
+	<tlib-version>1.0</tlib-version>
+	<short-name>app</short-name>
+	<uri>http://custom/jsp/tag</uri>
+
+	<!-- 按钮权限标签 -->
+	<tag>
+		<description>按钮权限标签</description>
+		<name>btnAuth</name>
+		<tag-class>com.app.core.tag.BtnAuthorizedTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<name>btnUrl</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<!-- 自定义select标签 -->
+	<tag>
+		<description>自定义select标签</description>
+		<name>select</name>
+		<tag-class>com.app.core.tag.SelectTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>id</name>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>name</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>classCss</name>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>style</name>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>disabled</name>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>onblur</name>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>onchange</name>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>onclick</name>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>ondblclick</name>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>onfocus</name>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>dictionaryCode</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>value</name>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>pvalue</name>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>choose</name>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>size</name>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
+	<!-- 格式化数据字典EL -->
+	<function>
+		<name>fmtDict</name>
+		<function-class>com.app.core.tag.DictionaryELTag</function-class>
+		<function-signature>java.lang.String fmt(java.lang.String)</function-signature>
+	</function>
+
+	<function>
+		<name>fmtDictText</name>
+		<function-class>com.app.core.tag.DictionaryELTag</function-class>
+		<function-signature>java.lang.String getText(java.lang.String, java.lang.String)</function-signature>
+	</function>
+
+</taglib>

@@ -1,0 +1,31 @@
+{
+    "button": [
+        {
+            "name": "订单管理",
+            "sub_button": [
+                {
+                    "type": "view",
+                    "name": "新订单",
+                    "url": "http://58.248.64.174/wxin/authorize.do?to=neworder"
+                },
+                {
+                    "type": "view",
+                    "name": "我的订单",
+                    "url": "http://58.248.64.174/wxin/authorize.do?to=orderlist"
+                }
+
+            ]
+        },
+        {
+            "name": "商品介绍",
+            "type": "view",
+            "url": "http://58.248.64.174/wxin/authorize.do?to=lsit"
+
+        },
+        {
+            "name": "关于我们",
+            "type": "view",
+            "url": "http://58.248.64.174/wxin/authorize.do?to=about"
+        }
+    ]
+}

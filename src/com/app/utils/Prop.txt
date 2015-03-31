@@ -1,0 +1,27 @@
+#数据库类型 Oracle 或  MySql
+DATABASE=MySql
+#字典岗位编码
+POST_DICTIONARY=D_Post
+#组织root节点代码
+ROOT_ORG_CODE=ORG_Company
+
+WORK_DAY_MENUID=402880e83df484ce013df49580f30000
+WORK_WEEK_MENUID=402880e83df484ce013df49581030003
+WORK_MONTH_MENUID=402880e83df484ce013df49581030001
+BUSINESS_ID=402880e83dbab052013dbab5a5eb0001
+CUSTOMERINFO_ID=402880e83dbab052013dbab3bccb0000
+
+#首页组织用户在线、离线状态头像
+USER_GREEN=/common/easyui1.4/themes/icons/user-green.png
+USER_GREEN_FEMALE=/common/easyui1.4/themes/icons/user-green-female.png
+USER_BLACK=/common/easyui1.4/themes/icons/user-black.png
+USER_BLACK_FEMALE=/common/easyui1.4/themes/icons/user-black-female.png
+USER_QUESTION=/common/easyui1.4/themes/icons/user-question.png
+#上传文件目录
+FILE_PATH=D:/upload
+#省字典编码
+D_PROVINCE=D_Province
+#员工编号前缀
+EMPLOYEE_CODE=HY
+#默认密码
+DEFAULT_PASSWORD=888888

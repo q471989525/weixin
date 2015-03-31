@@ -1,0 +1,67 @@
+*{
+	font-size:12px;
+}
+body {
+    font-family:helvetica,tahoma,verdana,sans-serif;
+    padding:20px;
+    font-size:13px;
+    margin:0;
+}
+input{
+	border:#CFCFCF 1px solid;
+	padding:1px;
+	width: 132px;
+	height:18px;
+}
+input[type=button]{
+	width: 40px;
+	height: 20px;
+}
+input[type=checkbox]{
+	width: 15px;
+	height: 18px;
+}
+input[type=radio]{
+	width: 15px;
+	height: 13px;
+}
+select{
+	border:#CFCFCF 1px solid;
+	padding:1px;
+	width: 136px;
+	height:22px;
+}
+textarea{
+	border:#CFCFCF 1px solid;
+	padding:1px;
+}
+input:focus {border: 1px dotted black;}
+textarea:focus {border: 1px dotted black;}
+select:focus {border: 1px dotted black;}
+
+/*���:ʵ���»���*/
+.formtable {border:1px solid #cccccc; border-width:0 0 1px 1px;}
+.formtable th {background:#ececec;}
+.formtable th,.formtable td {height:20px; border:1px solid #cccccc; border-width:1px 1px 0 0;padding: 2px;}
+
+.tdTitle{
+	background-color:rgb(244, 244, 244);
+	vertical-align:absmiddle;
+	text-align:left;
+}
+
+a:link{font-size:12px;color:#000;text-decoration:none; cursor:pointer }
+a:visited{font-size:12px;color:#000;text-decoration:none; cursor:pointer }
+a:hover{font-size:12px;color:#E1510B;text-decoration:underline; cursor:pointer }
+a:active{font-size:12px;color:#000000;text-decoration:none; cursor:pointer }
+/*
+ul{margin: 0px; padding: 0px; list-style: none;}
+.index_public li{height:25px;_height:25px; line-height:25px;_line-height:25px; text-indent:15px;background:url(icons/index_mian_icon.png) -16px -15px no-repeat;}
+.index_public li a{height:25px;color:#000;}
+.index_public li a:hover{height:22px; color:#E1510B;}
+.index_case_hide{width:70%; display:block;}
+.fleft,a.fleft{ float:left;}
+.blue,a.blue{ color:#0000FF;}
+.fright,a.fright{ float:right; padding-right: 2px;}
+.ellipsis{word-break:keep-all;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+*/

@@ -1,0 +1,21 @@
+/**********************************
+
+Name: cmxform Styles
+
+***********************************/
+label.error {
+	/* remove the next line when you have trouble in IE6 with labels in list */
+	color: red;
+	font-style: italic;
+	margin-left: 2px;
+	padding-left: 16px;
+	background: url(../images/unchecked.gif) no-repeat;
+}
+div.error { display: none; }
+/**
+input, textarea { border: 1px solid black; }
+input.checkbox { border: none }
+**/
+input.error { border: 1px dotted red; }
+textarea.error { border: 1px dotted red; }
+select.error { border: 1px dotted red; }

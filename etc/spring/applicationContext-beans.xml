@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	
+    <!-- 扫描com及子包，自动实例化带@注释的实例，这里排除@Controller，所有controller的实例化在 mvc-config中完成,如果不去除会影响事务管理的 -->
+    <context:component-scan base-package="com.app">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+	
+    <!-- Kaptcha验证码 -->
+    <bean id="captchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha">
+        <property name="config">
+            <bean class="com.google.code.kaptcha.util.Config">
+                <constructor-arg>
+                    <props>
+                        <prop key="kaptcha.border">yes</prop>
+                        <prop key="kaptcha.border.color">211,211,211</prop>
+                        <prop key="kaptcha.textproducer.font.color">47,79,79</prop>
+                        <prop key="kaptcha.textproducer.font.size">23</prop>
+                        <prop key="kaptcha.image.width">75</prop>
+                        <prop key="kaptcha.image.height">24</prop>
+                        <prop key="kaptcha.textproducer.char.string">1234567890</prop>
+                        <prop key="kaptcha.textproducer.char.length">4</prop>
+                        <prop key="kaptcha.textproducer.font.names">新宋体</prop>
+                        <prop key="kaptcha.background.clear.from">white</prop>
+                        <prop key="kaptcha.noise.impl">com.google.code.kaptcha.impl.NoNoise</prop>
+                        <prop key="kaptcha.obscurificator.impl">com.google.code.kaptcha.impl.ShadowGimpy</prop>
+                    </props>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+	
+    <!-- 引入配置文件
+    <bean id="propertyConfigurer" class="com.app.utils.SpringPropertyPlaceholderConfigurer">
+            <property name="location" value="WEB-INF/classes/db/database_oracle.properties"/>
+    </bean>
+    -->
+    <!-- 数据源 采用tomcat jdbc连接池 -->
+  	  
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" lazy-init="true">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://192.168.50.21:3306/weixin" />
+        <property name="username" value="test" />
+        <property name="password" value="test" />
+    </bean>
+    <!--	maxActive: 连接池中可同时连接的最大的连接数（默认值为8，调整为20，高峰单机器在20并发左右，自己根据应用场景定）
+initialSize: 连接池启动时创建的初始化连接数量（默认值为0）
+maxWait: 最大等待时间，当没有可用连接时，连接池等待连接释放的最大时间，超过该时间限制会抛出异常，如果设置-1表示无限等待（默认为无限，调整为60000ms，避免因线程池不够用，而导致请求被无限制挂起）
+maxIdle: 连接池中最大的空闲的连接数，超过的空闲连接将被释放，如果设置为负数表示不限制（默认为8个，maxIdle不能设置太小，因为假如在高负载的情况下，连接的打开时间比关闭的时间快，会引起连接池中idle的个数 上升超过maxIdle，而造成频繁的连接销毁和创建，类似于jvm参数中的Xmx设置)
+minIdle: 连接池中最小的空闲的连接数，低于这个数量会被创建新的连接（默认为0，调整为5，该参数越接近maxIdle，性能越好，因为连接的创建和销毁，都是需要消耗资源的；但是不能太大，因为在机器很空闲的时候，也会创建低于minidle个数的连接，类似于jvm参数中的Xmn设置）
+removeAbandoned: 超过removeAbandonedTimeout时间后，是否进行没用连接（废弃）的回收（默认为false，调整为true) 
+removeAbandonedTimeout: 超过时间限制，回收没有用(废弃)的连接（默认为 300秒，调整为180）
+    -->
+    <!--	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+            <property name="driverClassName" value="${driver_class}" />
+            <property name="url" value="${url}" />
+            <property name="username" value="${username}" />
+            <property name="password" value="${password}" />
+            <property name="maxActive" value="${maxActive}" />
+    <property name="initialSize" value="${initialSize}" />
+    <property name="maxWait" value="${maxWait}" />
+    <property name="maxIdle" value="${maxIdle}" />
+    <property name="minIdle" value="${minIdle}" />
+    <property name="removeAbandoned" value="${removeAbandoned}" />
+    <property name="removeAbandonedTimeout" value="${removeAbandonedTimeout}" />
+    </bean>-->
+	
+    <!--	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+            <property name="jndiName" value="java:comp/env/jdbc/sql_jndi"></property>
+    </bean>-->
+	
+    <!-- spring jdbcTemplate模板 -->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <constructor-arg ref="dataSource"/>
+    </bean>
+	
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" /><!-- 注入数据源 -->
+        <property name="packagesToScan" value="com.app"/><!-- 包扫描加载的Hibernate实体类 -->
+        <!-- sessionFactory 
+        <property name="configLocations"> 采用配置文件，主要看项目，采用哪种方法。
+                <list>
+                        <value>WEB-INF/classes/hibernate/*.cfg.xml</value>
+                </list>
+        </property>
+        -->
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">false</prop>
+                <prop key="hibernate.jdbc.fetch_size">10</prop>
+                <prop key="hibernate.jdbc.batch_size">50</prop>
+                <!--  <prop key="hibernate.hibernate.hbm2ddl.auto">create</prop> -->
+            </props>
+        </property>
+    </bean>
+	
+    <!-- 配置Hibernate的事务管理器 -->
+    <!-- 使用HibernateTransactionManager类，该类是PlatformTransactionManager接口针对采用Hibernate持久化连接的特定实现 -->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+	
+    <!-- 配置aop 切入点 和事务访问策略 ;com.app所有包（含子包）中以ServiceImpl结尾的类中，所有的方法加上事物-->     
+    <aop:config>  
+        <aop:pointcut id="serviceOperation" expression="execution(* com.app..*ServiceImpl.*(..))"/>
+        <aop:advisor pointcut-ref="serviceOperation" advice-ref="txAdvice"/>  
+    </aop:config>
+ 	
+    <tx:advice id="txAdvice" >   
+        <tx:attributes>
+            <tx:method name="save*" propagation="REQUIRED"/>  
+            <tx:method name="update*" propagation="REQUIRED"/>  
+            <tx:method name="del*" propagation="REQUIRED"/>  
+            <tx:method name="get*" read-only="true"/>
+            <tx:method name="load*" read-only="true"/>
+            <tx:method name="find*" read-only="true"/>
+            <tx:method name="list*" read-only="true"/>
+            <tx:method name="select*" read-only="true"/>
+            <tx:method name="*"/>
+        </tx:attributes>
+    </tx:advice>   
+    <!-- 这部分代码要放在<tx:annotation-driven/>的上面，否则tx:advice不起作用  -->
+	
+    <!-- 开启注解事物 -->
+    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+	
+    <!-- spring 静态获取bean -->
+    <bean id="springContextUtil" class="com.app.utils.SpringContextUtil" scope="singleton"/>
+	
+    <!-- 初始化系统基础数据 -->
+    <!--	<bean id="initsystemdate" class="com.app.core.init.InitSystemDate" init-method="init">
+            <property name="sysdictionaryservice" ref="sysdictionaryservice"/>
+            <property name="sysResourceService" ref="sysresourceservice"/>
+            <property name="sysUserDataLimitService" ref="sysuserdatalimitservice"/>
+    </bean>-->
+    <!--<bean id="orderService" class="com.app.application.weix.service.impl.OrderServiceImpl"></bean>-->
+    <!--&lt;!&ndash; 测试Dao &ndash;&gt;-->
+    <!--<bean id="orderDao" class="com.app.application.weix.dao.impl.OrderDaoImpl">-->
+        <!--<property name="sessionFactory" ref="sessionFactory"></property>-->
+    <!--</bean>-->
+</beans>
